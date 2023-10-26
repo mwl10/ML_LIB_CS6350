@@ -76,11 +76,9 @@ def adaboost_acc(X,y,stumps,feat_names, amount_of_says):
 # bagging and random forest functions
 #####################################################################################################
 
-def random_forest(X,y,feat_names,tree_count=10, max_depth=10, IG_metric='entropy', attr_subset_len=2):
-    # subsample of features to be able to split from at each layer? 
+def random_forest(X,y,feat_names,tree_count=10, max_depth=10, IG_metric='entropy', attr_subset_len=2): 
     m=X.shape[0]
     bootstraps = np.random.choice(m, size=(tree_count,m),replace=True)
-    ### bootstraps make it so that sometimes not all of the attr vals are there,
     forest = [tree_maker(X[bootstraps[i]], y[bootstraps[i]], 
                         X, y,
                         feat_names,
