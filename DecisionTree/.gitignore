@@ -1,0 +1,10 @@
+.ipynb_checkpoints
+__pycache__
+.DS_Store
+datasets
+scratch.ipynb
+
+linear_regression/.ipynb_checkpoints
+ensemble_learning/.ipynb_checkpoints
+
+ensemble_learning/2*

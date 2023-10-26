@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[476]:
+# In[572]:
 
 
 import numpy as np
@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 # ### Load Concrete Dataset
 
-# In[556]:
+# In[573]:
 
 
 # load dataset 
@@ -27,13 +27,13 @@ X,y = train_data[:,:-1], train_data[:,-1]
 X_test, y_test= test_data[:,:-1], test_data[:,-1]
 
 
-# In[557]:
+# In[574]:
 
 
 np.random.seed(seed=1)
 
 
-# In[566]:
+# In[575]:
 
 
 W = np.zeros((X.shape[1]))
@@ -41,7 +41,7 @@ W = np.zeros((X.shape[1]))
 
 # ### Batch Gradient Descent
 
-# In[567]:
+# In[576]:
 
 
 epochs = 20000
@@ -66,7 +66,7 @@ for epoch in range(epochs):
         print(f'{epoch=}, {train_losses[epoch]=}')
 
 
-# In[568]:
+# In[577]:
 
 
 plt.plot(train_losses[:converge_epoch])
@@ -74,7 +74,7 @@ plt.xlabel('epoch'), plt.ylabel('cost'), plt.title('batch gradient descent')
 plt.savefig('batch_gradient_descent_loss_curve')
 
 
-# In[482]:
+# In[578]:
 
 
 y_pred_test = X_test @ W
@@ -86,13 +86,13 @@ print(f'batch GD final test_loss = {calc_loss(y_test,y_pred_test)}')
 
 # ## Stochastic Gradient Descent
 
-# In[483]:
+# In[579]:
 
 
 W = np.zeros((X.shape[1]))
 
 
-# In[484]:
+# In[580]:
 
 
 epochs = 35000
@@ -114,7 +114,7 @@ for epoch in range(epochs): # amount of times we go through entire dataset
     
 
 
-# In[485]:
+# In[581]:
 
 
 plt.plot(train_losses)
@@ -122,7 +122,7 @@ plt.xlabel('epoch'), plt.ylabel('cost'), plt.title('stochastic gradient descent'
 plt.savefig('stochastic_gradient_descent_loss_curve')
 
 
-# In[486]:
+# In[582]:
 
 
 y_pred_test = X_test @ W
@@ -134,13 +134,13 @@ print(f'stochastic GD final test_loss = {calc_loss(y_test,y_pred_test)}')
 
 # ### Analytical Solution
 
-# In[487]:
+# In[583]:
 
 
 W = np.linalg.inv(X.T @ X) @ X.T @ y
 
 
-# In[488]:
+# In[584]:
 
 
 y_pred_train = X @ W
@@ -177,7 +177,7 @@ print(f'analytical soln test_loss = {calc_loss(y_test,y_pred_test)}')
 
 # ### Problem number 5 in paper problems
 
-# In[539]:
+# In[585]:
 
 
 data = np.array([[1,-1,2,1],[1,1,3,4],[-1,1,0,-1], [1,2,-4,-2],[3,-1,-1,0]])
@@ -189,7 +189,7 @@ y = data[:,-1]
 
 # #### 5b. calc grad w/ W = [-1, 1, -1,b=-1]
 
-# In[569]:
+# In[586]:
 
 
 W = np.array([-1, 1, -1,-1])[:,None]
@@ -198,15 +198,15 @@ W = np.array([-1, 1, -1,-1])[:,None]
 
 # ### 5c. Analytical Soln
 
-# In[546]:
+# In[587]:
 
 
-p.linalg.inv(X.T @ X) @ X.T @ y
+np.linalg.inv(X.T @ X) @ X.T @ y
 
 
 # ### 5d. stochastic gradient descent
 
-# In[552]:
+# In[588]:
 
 
 W = np.zeros((X.shape[1]))
@@ -227,13 +227,13 @@ for epoch in range(epochs): # amount of times we go through entire dataset
     #     print(f'{epoch=}, {train_losses[epoch]=}')
 
 
-# In[553]:
+# In[589]:
 
 
 plt.plot(train_losses)
 
 
-# In[554]:
+# In[590]:
 
 
 W
