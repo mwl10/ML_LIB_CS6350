@@ -1,4 +1,6 @@
 #!/bin/sh
 
 pip install numpy pandas matplotlib
-python3 ensemble_learning.py
+
+
+cat ensemble_learning.txt

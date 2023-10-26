@@ -1,0 +1,63 @@
+2a.
+
+train_acc, test_acc for ada w/ 1 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 51 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 101 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 151 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 201 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 251 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 301 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 351 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 401 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 451 stumps: [0.8808 0.8752] 
+train_acc, test_acc for ada w/ 501 stumps: [0.8808 0.8752] 
+
+
+2b.
+
+train acc, test acc for bagged forests, 1: [0.79458688 0.7919056 ] 
+train acc, test acc for bagged forests, 51: [0.79900416 0.81081568] 
+train acc, test acc for bagged forests, 101: [0.79900416 0.81126592] 
+train acc, test acc for bagged forests, 151: [0.7985472  0.81051552] 
+train acc, test acc for bagged forests, 201: [0.79885184 0.81156608] 
+train acc, test acc for bagged forests, 251: [0.79885184 0.81126592] 
+train acc, test acc for bagged forests, 301: [0.79885184 0.81111584] 
+train acc, test acc for bagged forests, 351: [0.79885184 0.81111584] 
+train acc, test acc for bagged forests, 401: [0.79885184 0.81111584] 
+train acc, test acc for bagged forests, 451: [0.79885184 0.81171616] 
+train acc, test acc for bagged forests, 501: [0.79885184 0.81051552] 
+
+
+2c.
+for single trees
+final_tree_bias=0.031358666666666674,final_sample_var=0.0768703448275862,general_squared_error=0.1082290114942528
+
+for bagged forests
+final_forest_bias=0.031358666666666674,final_forest_sample_var=0.22292399999999998,forest_general_squared_error=0.25428266666666666
+
+2d.
+
+random forest train/test accs across varying tree counts 1,51,101,151,...,501, and feature subset of 2
+ 1   [[0.81316992 0.81171616]
+ 51   [0.835104   0.86964704]
+ 101  [0.83068672 0.86859648]
+ 151  [0.83251456 0.86904672]
+ ...  [0.83160064 0.86979712]
+      [0.83312384 0.87009728]
+      [0.83114368 0.86934688]
+      [0.83479936 0.87024736]
+      [0.83312384 0.87024736]
+      [0.83312384 0.8699472 ]
+501   [0.835104   0.87039744]]
+
+
+2e.
+
+for single trees
+final_tree_bias=0.013993079584775088,final_sample_var=0.06453235294117646,general_squared_error=0.07852543252595154
+
+for random forests
+final_forest_bias=0.00258961937716263,final_forest_sample_var=0.017477647058823532,forest_general_squared_error=0.02006726643598616
+
+
+

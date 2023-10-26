@@ -16,6 +16,12 @@ There is a jupyter notebook called 'linear_regression.ipynb' that runs the exper
 
 Within the ensemble learning directory, I saved the forests I made in directories that correspond to the problem they were made for, i.e. 2a,2b,2c,2d,2e. The forests were saved as python pkl files, which are large and so I won't upload them to github. I realize that I should've probably saved them as text files and read them as jsons or something, but alas. 
 
+The code for the experiments of problem 2 in the homework exists in ensemble_learning.ipynb. Of course, you probably won't want to remake the trees because it takes a long while, so I made a separate script, ensemble_learning.py, 
+to at least print some of the results. Any of the *.png files are the figures from the experiments and are named relative to the problem they're associated with. 
+
+Code for the bonus dataset in problem 3 exists in 3_bonus_credit_card.ipynb.
+
+
 The file 'ensemble_fns.py' contains the functions / helper functions to create adaboost, bagged forests and random forests. Here are explanations of the main function declarations: 
 
 ############################################################################################################
@@ -77,9 +83,8 @@ This function takes in an example, i.e. X[0], the feat_names, as well as all the
 This function returns the accuracy of our adaboost stump ensemble across the input dataset.
 
 
-
 ############################################################################################################
 
-The run.sh file prints the results for these experiments, but
+The run.sh file prints the results for these experiments, but doesn't run the tree learning as it is quite a timely process
 
 
