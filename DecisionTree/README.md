@@ -11,6 +11,7 @@ The code for hw 1, i.e. the ID3 code and associated helper functions pre ensembl
 
 There is a jupyter notebook called 'perceptron.ipynb' that runs the experiments, and I converted it to a python script with an associated 'run.sh' file. This prints the train and test accuracies for the bank-note dataset with a standard perceptron, a voted perceptron and an averaged perceptron implementation. 
 
+There is also a notebook 'paper_problems.ipynb,' which I used to calculate margins and help with getting answers for some of the paper problems, saving some of the figures as well.
 
 ### Code within ./linear_regression
 
