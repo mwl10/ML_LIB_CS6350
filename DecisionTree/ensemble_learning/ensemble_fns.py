@@ -33,7 +33,6 @@ def adaboost(X,y,feat_names, num_stumps=100, IG_metric='entropy'):
     amount_of_says = np.zeros((num_stumps))
     stumps = []
     for i in range(num_stumps):
-
         # make a stump & predict with it
         stump = tree_maker(X_, y_, X, y,
                            feat_names,
@@ -79,6 +78,16 @@ def adaboost_acc(X,y,stumps,feat_names, amount_of_says):
 def random_forest(X,y,feat_names,tree_count=10, max_depth=10, IG_metric='entropy', attr_subset_len=2): 
     m=X.shape[0]
     bootstraps = np.random.choice(m, size=(tree_count,m),replace=True)
+    # forest = []
+    # for i in range(tree_count):
+        # print(i, end=",")
+        # tree = tree_maker(X[bootstraps[i]], y[bootstraps[i]], 
+        #                   X, y,
+        #                   feat_names,
+        #                   max_depth=max_depth,
+        #                   IG_metric=IG_metric,
+        #                   attr_subset_len=attr_subset_len)
+        # forest.append(tree)
     forest = [tree_maker(X[bootstraps[i]], y[bootstraps[i]], 
                         X, y,
                         feat_names,
@@ -92,6 +101,17 @@ def random_forest(X,y,feat_names,tree_count=10, max_depth=10, IG_metric='entropy
 def bagging(X,y,feat_names,tree_count=10, max_depth=10, IG_metric='entropy'):
     m=X.shape[0]
     bootstraps = np.random.choice(m, size=(tree_count,m),replace=True)
+
+    # forest = []
+    # for i in range(tree_count):
+        # print(i, end=",")
+        # tree = tree_maker(X[bootstraps[i]], y[bootstraps[i]], 
+        #                   X, y,
+        #                   feat_names,
+        #                   max_depth=max_depth,
+        #                   IG_metric=IG_metric,
+        #                   attr_subset_len=X.shape[1])
+        # forest.append(tree)
     forest = [tree_maker(X[bootstraps[i]], y[bootstraps[i]], 
                         X, y,
                         feat_names,

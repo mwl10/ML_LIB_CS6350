@@ -1,10 +1,12 @@
 .ipynb_checkpoints
 __pycache__
 .DS_Store
-datasets
+datasets/*
+!datasets/bank
+
 scratch.ipynb
 
 linear_regression/.ipynb_checkpoints
 ensemble_learning/.ipynb_checkpoints
 
-ensemble_learning/2*
+ensemble_learning/[2,3]*
