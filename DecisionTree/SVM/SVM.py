@@ -13,10 +13,6 @@ np.random.seed(42)
 # In[2]:
 
 
-get_ipython().run_line_magic('load_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '')
-
-
 # ### Loading Bank Note Dataset
 
 # In[3]:
@@ -229,13 +225,14 @@ for i,lr in enumerate(lrs):
         w_0 = w_0 - (lr * w_0)
 
 
-# ### SVM Dual Domain
+# ### 3A) SVM Dual Domain
 
 # In[178]:
 
 
 from scipy.optimize import minimize 
 from typing import Callable
+import pickle
 
 def gaussian_kernel(X1,X2,gamma=0.1): 
     norm_diff_squared = ((X1 - X2)**2).sum(axis=-1)
@@ -263,27 +260,27 @@ constraints = ({'type': 'ineq','fun': lambda a: a },
 
 # ### Identity Kernel/ No Kernel w/ different Cs
 
-# In[185]:
+# In[280]:
 
 
 print('starting SVM duel with various C values and no kernel')
 
 Cs = [100/873, 500 / 873, 700 / 873]
-optims = []
-for C in Cs:
-    y = y_train
-    a = np.zeros((len(x_train))) 
-    constraints = ({'type': 'ineq','fun': lambda a: a },
-               {'type': 'ineq', 'args': (C,),'fun': lambda a,C: C-a},
-               {'type': 'eq', 'args': (y,),'fun': lambda a,y: (a*y).sum()}
-              )
-    optim = minimize(objective, 
-                    x0 = a, 
-                    args = ((C,x_train,y_train,identity_kernel,)),
-                    constraints=constraints)
-    optims.append(optim)
-    with open(f'C_{C:.2f}.pkl','wb') as f:
-        pickle.dump(optim, f, protocol=pickle.HIGHEST_PROTOCOL)
+# optims = []
+# for C in Cs:
+#     y = y_train
+#     a = np.zeros((len(x_train))) 
+#     constraints = ({'type': 'ineq','fun': lambda a: a },
+#                {'type': 'ineq', 'args': (C,),'fun': lambda a,C: C-a},
+#                {'type': 'eq', 'args': (y,),'fun': lambda a,y: (a*y).sum()}
+#               )
+#     optim = minimize(objective, 
+#                     x0 = a, 
+#                     args = ((C,x_train,y_train,identity_kernel,)),
+#                     constraints=constraints)
+#     optims.append(optim)
+#     with open(f'C_{C:.2f}.pkl','wb') as f:
+#         pickle.dump(optim, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -320,41 +317,51 @@ for i,optim in enumerate(optims):
     print(f'dual SVM w no kernel and C={Cs[i]:2f},\n {train_acc=}, \n {test_acc=}')
 
 
-# ### Gaussian Kernel w/ different C settings and gamma settings 
-
-# In[183]:
-
-
-import pickle
-
+# ### 3B) Gaussian Kernel w/ different C settings and gamma settings 
 
 # In[ ]:
+
+
+def gaussian_kernel(X1,X2,gamma=0.1): 
+    norm_diff_squared = ((X1 - X2)**2).sum(axis=-1)
+    return np.exp(-1 * (norm_diff_squared / gamma))
+def objective(a,C,X,y,kernel: Callable):
+    indexes = np.arange(len(X))
+    i_s,j_s = np.meshgrid(indexes, indexes)
+    term1 = y[i_s] * y[j_s] * a[i_s] * a[j_s] \
+            * kernel(X[i_s],X[j_s])
+    term1 = 0.5 * term1.sum()
+    term2 = a.sum()
+    return term1 - term2
+
+
+# In[251]:
 
 
 Cs = [100/873, 500 / 873, 700 / 873]
 gammas = [0.1, 0.5, 1, 5, 100]
 
-optims = []
-for gamma in gammas:
-    for C in Cs:
-        y = y_train
-        kernel = partial(gaussian_kernel, gamma=gamma)
-        a = np.zeros((len(x_train))) 
-        constraints = ({'type': 'ineq','fun': lambda a: a },
-               {'type': 'ineq', 'args': (C,),'fun': lambda a,C: C-a},
-               {'type': 'eq', 'args': (y,),'fun': lambda a,y: (a*y).sum()}
-              )
-        optim = minimize(objective, 
-                        x0 = a, 
-                        args = ((C,x_train,y_train,kernel,)),
-                        constraints=constraints)
-        optims.append(optim)
-        with open(f'gaussk_{gamma}_{C:.2f}.pkl','wb') as f:
-            pickle.dump(optim, f, protocol=pickle.HIGHEST_PROTOCOL)
+# optims = []
+# for gamma in gammas:
+#     for C in Cs:
+#         y = y_train
+#         kernel = partial(gaussian_kernel, gamma=gamma)
+#         a = np.zeros((len(x_train))) 
+#         constraints = ({'type': 'ineq','fun': lambda a: a },
+#                {'type': 'ineq', 'args': (C,),'fun': lambda a,C: C-a},
+#                {'type': 'eq', 'args': (y,),'fun': lambda a,y: (a*y).sum()}
+#               )
+#         optim = minimize(objective, 
+#                         x0 = a, 
+#                         args = ((C,x_train,y_train,kernel,)),
+#                         constraints=constraints)
+#         optims.append(optim)
+#         with open(f'gaussk_{gamma}_{C:.2f}.pkl','wb') as f:
+#             pickle.dump(optim, f, protocol=pickle.HIGHEST_PROTOCOL)
             
 
 
-# In[244]:
+# In[275]:
 
 
 from glob import glob
@@ -368,7 +375,7 @@ for optim_file in files:
         optims_gauss.append(pickle.load(f))
 
 
-# In[247]:
+# In[253]:
 
 
 def kernel_svm_pred(x_train, y_train, x_test, kernel, a):
@@ -381,10 +388,10 @@ def kernel_svm_pred(x_train, y_train, x_test, kernel, a):
     return preds
 
 
-# In[248]:
+# In[254]:
 
 
-rep_Cs = Cs*5
+rep_Cs = Cs*4
 for i,optim in enumerate(optims_gauss): 
     file = files[i]
     gamma = float(file.split('_')[1])
@@ -399,20 +406,35 @@ for i,optim in enumerate(optims_gauss):
     print(f'dual SVM w gauss kernel, {gamma=} and C={C:2f},\n {train_acc=}, \n {test_acc=}')
 
 
-# In[ ]:
+# ### 3C) how many support vectors are the same for different values of gamma? 
+
+# In[276]:
 
 
-### how many support vectors are the same for different values of gamma? 
+rep_Cs = Cs*4
+for i,optim in enumerate(optims_gauss): 
+    file = files[i]
+    C = rep_Cs[i]
+    gamma = float(file.split('_')[1])
+    num_support_vecs = (optim['x'] > 0).sum()
+    print(f'{num_support_vecs=} for {C=} and {gamma=}')
+
+
+# In[279]:
+
+
 ### w/ all C = 100 / 873
 import itertools
-a = np.arange(5)
+a = np.arange(4)
 pairs = list(itertools.product(a, a))
-optims_gauss = np.array(optims_gauss)[0,3,6,9,12]
-print('begin comparing support vectors for gauss kernel SVM models w/ different gammas')
+files_index = np.array([0,3,6,9]) ## optimizers where C = 100/872 for diff gammas
+optims = np.array(optims_gauss)[files_index]
+print('3c. begin comparing support vectors for gauss kernel SVM models w/ different gammas')
 for pair in pairs: 
-    print(f'comparing gamma={gammas[pair[0]]} and gamma={gammas[pair[1]]}')
-    support_vecs_1 = optims_gauss[pair[0]]['x'] > 0
-    support_vecs_2 = optims_gauss[pair[1]]['x'] > 0
+    print(f'comparing gamma={gammas[pair[0]]} and gamma={gammas[pair[1]]}', end=', ')
+    support_vecs_1 = optims[pair[0]]['x'] > 0
+    print(support_vecs_1.sum(), support_vecs_2.sum(), end=' ')
+    support_vecs_2 = optims[pair[1]]['x'] > 0
     print(f'num matching support vectors: {np.logical_and(support_vecs_1,support_vecs_2).sum()}')
 
 
