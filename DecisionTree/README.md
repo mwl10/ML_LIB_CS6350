@@ -6,6 +6,14 @@ The 'datasets.py' file contains a helper function, get_bank_data, to load the ba
 The code for hw 1, i.e. the ID3 code and associated helper functions pre ensemble learning, exists in 'decision_tree_fns.py.' The tree_maker function in this file was updated to accomodate random forests such that it takes a new argument, attr_subset_len, which is the number that decides how many features we randomly subsample and consider in deciding the next split. 
 
 
+### Code within ./SVM
+
+There is a jupyter notebook called 'SVM.ipynb' that runs the experiments, and I converted it to a python script with an associated 'run.sh' file. (1) This runs SVM primal domain stochastic sub-gradient descent for the bank note dataset w/ a couple of different learning rate schedules, (2) calculates subgradients for paper problem number 5, (3) runs a SVM in the duel domain using a quadratic optimizer package (scipy.minimize), which I believe I vectorized, but is still quite slow, both for no kernel and a Gaussian kernel w/ various gamma parameters. 
+
+Consequently, I saved the dicts returned by scipy.minimize for the gauss kernel SVM to pkl files because of the slowness, and they are named 'gaussk_{gamma val}_{C val}.pkl'. The dicts returned by scipy.minimize for the Linear dual SVM are labeled as 'C_{C val}.pkl'. The SVM.py script will load those instead of calling scipy.minimize and make evaluations. 
+
+Finally, I did the bonus question to implement the kernel perceptron. 
+
 
 ### Code within ./perceptron
 

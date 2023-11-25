@@ -3,7 +3,6 @@ __pycache__
 .DS_Store
 datasets/*
 !datasets/bank
-
 scratch.ipynb
 
 linear_regression/.ipynb_checkpoints
