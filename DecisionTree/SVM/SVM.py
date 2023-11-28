@@ -389,7 +389,7 @@ def kernel_svm_pred(x_train, y_train, x_test, kernel, a):
 
 
 # In[254]:
-
+from functools import partial
 
 rep_Cs = Cs*4
 for i,optim in enumerate(optims_gauss): 
