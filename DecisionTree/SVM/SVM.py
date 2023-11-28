@@ -433,8 +433,8 @@ print('3c. begin comparing support vectors for gauss kernel SVM models w/ differ
 for pair in pairs: 
     print(f'comparing gamma={gammas[pair[0]]} and gamma={gammas[pair[1]]}', end=', ')
     support_vecs_1 = optims[pair[0]]['x'] > 0
-    print(support_vecs_1.sum(), support_vecs_2.sum(), end=' ')
     support_vecs_2 = optims[pair[1]]['x'] > 0
+    print(support_vecs_1.sum(), support_vecs_2.sum(), end=' ')
     print(f'num matching support vectors: {np.logical_and(support_vecs_1,support_vecs_2).sum()}')
 
 
