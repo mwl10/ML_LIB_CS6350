@@ -5,6 +5,12 @@ The 'datasets.py' file contains a helper function, get_bank_data, to load the ba
 
 The code for hw 1, i.e. the ID3 code and associated helper functions pre ensemble learning, exists in 'decision_tree_fns.py.' The tree_maker function in this file was updated to accomodate random forests such that it takes a new argument, attr_subset_len, which is the number that decides how many features we randomly subsample and consider in deciding the next split. 
 
+### Code within ./neural_network
+
+
+
+
+
 
 ### Code within ./SVM
 
