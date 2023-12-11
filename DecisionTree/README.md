@@ -7,7 +7,13 @@ The code for hw 1, i.e. the ID3 code and associated helper functions pre ensembl
 
 ### Code within ./neural_network
 
+For this, I used jax, which is an accelerated version of numpy. Pretty much every command in np has an associated jnp command, which is what you'll see me using in the implementation. I hope that it downloads for you in the shell script properly along with pytorch, which I used for the bonus problem. 
 
+I would just run/ gander at the jupyter notebooks. The neural network utils/implementation is in 'neural_net.py,' where these functions were used in 'neural_network.ipynb.'
+
+The code/plts for the bonus problem that uses pytorch models is in 'torch_model.ipynb.' 'torch_logs.txt' has the print statements of train/test losses for training each of these models. 
+
+ The logistic regression utils/implementation is in 'log_reg.py,' where these functions were used in 'log_reg.ipynb.'
 
 
 
