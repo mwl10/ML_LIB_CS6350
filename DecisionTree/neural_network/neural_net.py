@@ -8,11 +8,11 @@ def init_params(random_key, n_x, n_h, n_y):
     # n_y -- size of the output layer
     keys = random.split(random_key, 3)
     return {
-            "W0": random.uniform(keys[0], shape=(n_h,n_x)),
+            "W0": random.normal(keys[0], shape=(n_h,n_x)),
             "b0": jnp.zeros((n_h,)),
-            "W1": random.uniform(keys[1], shape=(n_h,n_h)),
+            "W1": random.normal(keys[1], shape=(n_h,n_h)),
             "b1": jnp.zeros((n_h,)),
-            "W2": random.uniform(keys[2], shape=(n_y, n_h)),
+            "W2": random.normal(keys[2], shape=(n_y, n_h)),
             "b2": jnp.zeros((n_y,))
             }
 
