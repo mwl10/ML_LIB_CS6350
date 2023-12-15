@@ -3,18 +3,61 @@
 
 The 'datasets.py' file contains a helper function, get_bank_data, to load the bank data and convert numerical features to binary features (using the media) given the file paths to the train/test csv files. 
 
-The code for hw 1, i.e. the ID3 code and associated helper functions pre ensemble learning, exists in 'decision_tree_fns.py.' The tree_maker function in this file was updated to accomodate random forests such that it takes a new argument, attr_subset_len, which is the number that decides how many features we randomly subsample and consider in deciding the next split. 
+The code for hw 1, i.e. the ID3 code and associated helper functions pre ensemble learning, exists in 'decision_tree_fns.py.' The tree_maker function in this file was updated to accommodate random forests such that it takes a new argument, attr_subset_len, which is the number that decides how many features we randomly subsample and consider in deciding the next split. 
 
 ### Code within ./neural_network
 
 For this, I used jax, which is an accelerated version of numpy. Pretty much every command in np has an associated jnp command, which is what you'll see me using in the implementation. I hope that it downloads for you in the shell script properly along with pytorch, which I used for the bonus problem. 
 
-I would just run/ gander at the jupyter notebooks. The neural network utils/implementation is in 'neural_net.py,' where these functions were used in 'neural_network.ipynb.'
+I would just run/gander at the jupyter notebooks. The neural network utils/implementation is in 'neural_net.py,' where these functions were used in 'neural_network.ipynb.'
+
+
+#### function declarations in neural_network.py
+def init_params(random_key, n_x, n_h, n_y):
+    # n_x -- num input features
+    # n_h -- size of the 2 hidden layers
+    # n_y -- size of the output layer
+returns parameter dict of 3 layer network with 
+activations of first layer as A0, weights of first layer as W0, bias of first layer as b0
+and so on...
+
+def sigmoid(Z):
+    A = 1/(1+jnp.exp(-Z))
+    cache = Z ## keep for backprop 
+    return A, cache
+
+def sigmoid_backprop(dL_dA, cache):
+    Z = cache
+    s = 1/(1+jnp.exp(-Z))
+    dL_dZ = dL_dA * s * (1-s)
+    return dL_dZ
+
+def layer_forward(A, W, b):
+--> propagates output activations from previous layer to get output activations from 
+current layer using W,b + sigmoid fn, while keeping necessary cached items for backprop
+
+
+def model_forward(X, parameters):
+--> returns output of forward prop through the 3 layer model, 
+while keeping necessary caches for backprop. 
+
+
+def layer_backprop(dL_dA, cache):
+--> backprops through sigmoid activation to get dL_dZ from dL_dA, 
+then computes dL_dW,dL_db,dL_dA_prev
+
+def model_backprop(preds, y, caches):
+--> starts by calculating the derivative of the loss with respect to the predictions/last layer output. Then calls the function 'layer backprop' with the current layer activations / caches to garner derivatives wrt to the loss of weights, biases, and previous layer's activations for each layer successively. 
+
+def update_params(params, grads, lr):       
+--returns updated parameter dict given the grads dict and learning rate (lr)                                     
+
+
+#### Code for bonus questions
 
 The code/plts for the bonus problem that uses pytorch models is in 'torch_model.ipynb.' 'torch_logs.txt' has the print statements of train/test losses for training each of these models. 
 
- The logistic regression utils/implementation is in 'log_reg.py,' where these functions were used in 'log_reg.ipynb.'
-
+ The logistic regression utils/implementation for maximum a posteriori and maximum likelihood training is in entirely 'log_reg.ipynb.' The gradients change of course for each objective, so the backprop function is what differs in either case. 
 
 
 
