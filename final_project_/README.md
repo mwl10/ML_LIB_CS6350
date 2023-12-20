@@ -5,7 +5,7 @@ Some relevant files are:
 [dataset.py](dataset.py) and 
 [audio_data_tinker.ipynb](./dev_notebooks/audio_data_tinker.ipynb) for preprocessing the audio data and preparing it for training! 
 
-For some results, take a look at [blues_driver_results.ipynb](./dev_notebooks/blues_driver_results.ipynb).
+For some results, take a look at [blues_driver_results.ipynb](blues_driver_results.ipynb).
 
 
 
